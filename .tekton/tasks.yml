@@ -20,18 +20,11 @@ spec:
       script: |
         #!/usr/bin/env sh
         set -eu
-
         if [ -d "${WORKSPACE_SOURCE_PATH}" ]; then
-          # Delete ordinary files and directories.
           rm -rf "${WORKSPACE_SOURCE_PATH}"/*
-
-          # Delete names beginning with . except . and ..
           rm -rf "${WORKSPACE_SOURCE_PATH}"/.[!.]*
-
-          # Delete names beginning with .. followed by another character.
           rm -rf "${WORKSPACE_SOURCE_PATH}"/..?*
         fi
-
 ---
 apiVersion: tekton.dev/v1beta1
 kind: Task
