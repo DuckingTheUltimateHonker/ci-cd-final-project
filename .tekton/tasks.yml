@@ -20,10 +20,15 @@ spec:
       script: |
         #!/usr/bin/env sh
         set -eu
-        echo "Removing all files from ${WORKSPACE_SOURCE_PATH} ..."
-        if [ -d "${WORKSPACE_SOURCE_PATH}" ] ; then
-          rm -rf "${WORKSPACE_SOURCE_PATH:?}"/*
+
+        if [ -d "${WORKSPACE_SOURCE_PATH}" ]; then
+          # Delete ordinary files and directories.
+          rm -rf "${WORKSPACE_SOURCE_PATH}"/*
+
+          # Delete names beginning with . except . and ..
           rm -rf "${WORKSPACE_SOURCE_PATH}"/.[!.]*
+
+          # Delete names beginning with .. followed by another character.
           rm -rf "${WORKSPACE_SOURCE_PATH}"/..?*
         fi
 
